@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pcd-app
   labels:
-    app: pcd
+    app: pcd-app
 spec:
   replicas: 1
   selector:
@@ -12,11 +12,11 @@ spec:
   template:
     metadata:
       labels:
-        app: my-app
+        app: pcd-app
     spec:
       containers:
         - name: pcd-app-container
-          image: tmp # check image
+          image: us-central1-docker.pkg.dev/semiotic-primer-459114-c6/pcd-app/pcd-app:0.0.2
           ports:
             - containerPort: 80
           readinessProbe:
@@ -31,3 +31,34 @@ spec:
               port: 80
             initialDelaySeconds: 15
             periodSeconds: 20
+
+      #   - name: cloud-sql-proxy
+      #     image: gcr.io/cloudsql-docker/gce-proxy:1.33.3
+      #     command: ["/cloud_sql_proxy",
+      #       "-instances=YOUR_PROJECT_ID:REGION:INSTANCE_ID=tcp:5432",
+      #       "-credential_file=/secrets/cloudsql/credentials.json"]
+      #     volumeMounts:
+      #       - name: cloudsql-creds
+      #         mountPath: /secrets/cloudsql
+      #         readOnly: true
+
+      # volumes:
+      # - name: cloudsql-creds
+      #   secret:
+      #     secretName: cloudsql-instance-credentials
+
+---
+
+apiVersion: v1 
+kind: Service
+metadata:
+  name: pcd-app
+  labels:
+    app: pcd
+spec:
+  selector:
+    app: pcd
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

@@ -1,0 +1,1 @@
+gcloud deploy releases create pcd-release --delivery-pipeline=pcd-deploy --from-k8s-manifest=manifests/deployment.yaml --region=us-central1

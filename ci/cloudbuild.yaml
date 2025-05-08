@@ -1,0 +1,17 @@
+steps:
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 
+           'us-central1-docker.pkg.dev/semiotic-primer-459114-c6/pcd-app/pcd-app:0.0.2', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push',  'us-central1-docker.pkg.dev/semiotic-primer-459114-c6/pcd-app/pcd-app:0.0.2']
+
+  # - name: google/cloud-sdk
+  #   args: ['gcloud', 'run', 'deploy', 'hello-world-python', 
+  #          '--image=us-central1-docker.pkg.dev/semiotic-primer-459114-c6/pcd-app/pcd-app:0.0.2', 
+  #          '--region', 'us-central1', '--platform', 'managed', 
+  #          '--allow-unauthenticated']
+
+images:
+  - us-central1-docker.pkg.dev/semiotic-primer-459114-c6/pcd-app/pcd-app:0.0.2
