@@ -2,16 +2,16 @@ steps:
 
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 
-           'us-central1-docker.pkg.dev/semiotic-primer-459114-c6/pcd-app/pcd-app:0.0.2', '.']
+           'us-central1-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/pcd-app:${COMMIT_SHA}', '.']
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push',  'us-central1-docker.pkg.dev/semiotic-primer-459114-c6/pcd-app/pcd-app:0.0.2']
+    args: ['push',  'us-central1-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/pcd-app:${COMMIT_SHA}']
 
   # - name: google/cloud-sdk
   #   args: ['gcloud', 'run', 'deploy', 'hello-world-python', 
-  #          '--image=us-central1-docker.pkg.dev/semiotic-primer-459114-c6/pcd-app/pcd-app:0.0.2', 
+  #          '--image=us-central1-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/pcd-app:${COMMIT_SHA}', 
   #          '--region', 'us-central1', '--platform', 'managed', 
   #          '--allow-unauthenticated']
 
 images:
-  - us-central1-docker.pkg.dev/semiotic-primer-459114-c6/pcd-app/pcd-app:0.0.2
+  - us-central1-docker.pkg.dev/${_PROJECT_ID}/${_REPO_NAME}/pcd-app:${COMMIT_SHA}
